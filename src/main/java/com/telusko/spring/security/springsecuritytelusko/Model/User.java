@@ -20,5 +20,6 @@ public class User {
     private long id;
     private String username;
     private String password;
-    private String role;
+    private boolean active;
+    private String roles;
 }

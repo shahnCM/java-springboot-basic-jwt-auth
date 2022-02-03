@@ -1,19 +1,20 @@
 package com.telusko.spring.security.springsecuritytelusko.Service;
 
 import com.telusko.spring.security.springsecuritytelusko.Model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class UserPrincipal implements UserDetails {
+public class UserPrincipalService implements UserDetails {
 
     private User user;
 
-    public UserPrincipal(User user) {
+    public UserPrincipalService(User user) {
         super();
         this.user = user;
     }
@@ -29,8 +30,14 @@ public class UserPrincipal implements UserDetails {
     }
 
     @Override
+    public boolean isEnabled() {
+        return user.isActive();
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+//        return Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return Collections.singleton(new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override
@@ -45,11 +52,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
         return true;
     }
 }

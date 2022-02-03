@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthUserDetailsService implements UserDetailsService {
 
@@ -22,6 +24,6 @@ public class AuthUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User Not Found");
         }
 
-        return new UserPrincipal(user);
+        return new UserPrincipalService(user);
     }
 }
