@@ -47,18 +47,24 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    // Authentication Setup
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authUserDetailsService);
     }
 
+    // Authorization Setup
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-            .disable()
-            .authorizeHttpRequests().antMatchers("/authenticate").permitAll()
+        http
+            .csrf().disable().authorizeHttpRequests()
+            .antMatchers("/home").hasAnyRole("USER")
+//            .antMatchers("/admin").hasRole("ADMIN")
+//            .antMatchers("/user", "/home").hasAnyRole("ADMIN", "USER")
+//            .antMatchers("/", "/authenticate").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+            .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
