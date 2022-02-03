@@ -2,6 +2,7 @@ package com.telusko.spring.security.springsecuritytelusko.Service;
 
 import com.telusko.spring.security.springsecuritytelusko.Model.User;
 import com.telusko.spring.security.springsecuritytelusko.Repository.UserRepository;
+import com.telusko.spring.security.springsecuritytelusko.Util.UserDetailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,6 @@ public class AuthUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User Not Found");
         }
 
-        return new UserPrincipal(user);
+        return new UserDetailUtil(user);
     }
 }

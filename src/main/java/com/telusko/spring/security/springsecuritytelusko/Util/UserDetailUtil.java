@@ -1,7 +1,6 @@
-package com.telusko.spring.security.springsecuritytelusko.Service;
+package com.telusko.spring.security.springsecuritytelusko.Util;
 
 import com.telusko.spring.security.springsecuritytelusko.Model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserPrincipal implements UserDetails {
+public class UserDetailUtil implements UserDetails {
 
     private User user;
 
-    public UserPrincipal(User user) {
+    public UserDetailUtil(User user) {
         super();
         this.user = user;
     }
