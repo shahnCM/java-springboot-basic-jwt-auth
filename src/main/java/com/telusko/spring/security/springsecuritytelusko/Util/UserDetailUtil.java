@@ -30,12 +30,13 @@ public class UserDetailUtil implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() { return user.isActive(); }
+    public boolean isEnabled() {
+        return user.isActive();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-//        return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
